@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700'); 
+ 
+body {
+	font-family: 'Montserrat', sans-serif;
+	background: #ecf0f1;
+	background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+}
+
+header {
+	text-align: center;
+}
+
+header h1 {
+	font-size: 64px;
+	font-weight: 400;
+	margin: 80px 0 25px;
+	color: #2c3e50;
+}
+header h1 span {
+	font-weight: 700;
+}
+
+li {
+	list-style-type: disc;
+	list-style-position: inside;
+}
+
+li span {
+  float: right;
+  color: #c0392b;
+  transition: all 0.3s;
+  opacity: 0;
+}
+
+li span:hover {
+  color: #dd5749;
+}
+
+.todo-form {
+	width: 800px;
+	margin: 50px auto 20px;
+}
+
+.todo-input {
+	width: 100%;
+	position: relative;
+	height: 60px;
+	background: none;
+	border: none;
+	border-bottom: 1px solid #34495e;
+	outline: none;
+	font: 300 28px 'Ubuntu', sans-serif;
+	padding: 20px;
+	color: #3d3d3d;
+}
+
+::placeholder { 
+    color: rgb(44, 62, 80, 0.3);
+}
+
+.todo-list {
+	width: 800px;
+	margin: 0 auto;
+}
+.todo-item {
+	width: 100%;
+	font-size: 20px;
+	padding: 16px 20px;
+	color: rgb(71, 94, 102, 1);
+	box-sizing: border-box; 
+	font-weight: 400;
+	transition: all .3s ease;
+}
+.todo-item:hover {
+	background: rgba(0, 0, 0, .08);
+	transition: all 0.3s;
+	cursor: pointer;
+}
+
+.todo-item:hover span{
+	opacity: 1;
+}
+
+.completed {
+	text-decoration: line-through;
+	color: #bdc3c7;
+}

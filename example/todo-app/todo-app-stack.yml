@@ -1,0 +1,70 @@
+version: '3.7'
+services:
+  ui:                                                   # service name
+    build:                                                # build rule
+      context: .                                            # build context path
+      dockerfile: build/ui/Dockerfile                       # dockerfile path
+    image: todo-app-ui:latest                           # image name
+    deploy:                                             # deploy rules
+      mode: replicated 
+      replicas: 1
+      restart_policy:                                     # restart_policy on-failure
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 100M
+    volumes:                                          # volumes
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+    networks:                                         # network
+      - default
+    ports:                                            # bind ports
+      - "80:80"
+  app:
+    build:
+      context: .
+      dockerfile: build/app/Dockerfile
+    image: todo-app:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.20'
+          memory: 100M
+    command: [                                       # command argument
+      "--database-host", "database",
+      "--database-user", "todoapp",
+      "--database-password", "secret",
+      "--database-name", "todoapp"
+    ]
+    networks:
+      - default
+  database:
+    image: mysql:8.0
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 400M
+    volumes:
+      - ./data/schema:/docker-entrypoint-initdb.d
+      - database-data:/var/lib/mysql
+    environment:                                    # environtment variable
+      MYSQL_ROOT_PASSWORD: supersecret
+      MYSQL_DATABASE: todoapp
+      MYSQL_USER: todoapp
+      MYSQL_PASSWORD: secret
+      TZ: Asia/Jakarta
+    networks:
+      - default
+volumes:                                            # volumes definition
+  database-data:
+networks:                                           # network definition
+  default:
