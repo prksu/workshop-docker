@@ -1,0 +1,46 @@
+version: '3.7'
+services:
+  ui:
+    build:
+      context: .
+      dockerfile: build/ui/Dockerfile
+    image: todo-app-ui:latest
+    restart: on-failure
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - default
+    ports:
+      - 80:80
+  app:
+    build:
+      context: .
+      dockerfile: build/app/Dockerfile
+    image: todo-app:latest
+    restart: on-failure
+    command: [
+      "--database-host", "database",
+      "--database-user", "todoapp",
+      "--database-password", "secret",
+      "--database-name", "todoapp"
+    ]
+    networks:
+      - default
+  database:
+    image: mysql:8.0
+    restart: on-failure
+    volumes:
+      - ./data/schema:/docker-entrypoint-initdb.d
+      - database_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: supersecret
+      MYSQL_DATABASE: todoapp
+      MYSQL_USER: todoapp
+      MYSQL_PASSWORD: secret
+      TZ: Asia/Jakarta
+    networks:
+      - default
+volumes:
+  database_data:
+networks:
+  default:
