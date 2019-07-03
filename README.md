@@ -20,8 +20,8 @@
 ## Session
 
 - [getting-started](sections/i-getting-started.md)
-- [docker-machine](sections/ii-docker-machine.md)
-- [docker-compose](sections/iii-docker-compose.md)
+- [docker-compose](sections/ii-docker-compose.md)
+- [docker-machine](sections/iii-docker-machine.md)
 - [docker-swarm](sections/iv-docker-swarm.md)
 
 ## Example Code
