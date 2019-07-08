@@ -17,7 +17,7 @@
 - older Windows (Windows 7 or Windows 8/8.1) **not recommended**
     - [Docker Toolbox](https://docs.docker.com/toolbox/toolbox_install_windows/)
 
-## Session
+## Section
 
 - [getting-started](sections/i-getting-started.md)
 - [docker-compose](sections/ii-docker-compose.md)
