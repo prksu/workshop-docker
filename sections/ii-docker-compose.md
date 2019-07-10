@@ -129,25 +129,44 @@ You can also see this information by running `docker-compose --help` from the co
 Create and start docker container
 
 ```bash
-$ docker-compose -f example/todos-app/todos-app-stack.yml --compatibility up -d
+$ docker-compose -f example/todo-app/docker-compose.yml up -d
+Creating network "todo-app_default" with the default driver
+Creating todo-app_database_1 ... done
+Creating todo-app_ui_1       ... done
+Creating todo-app_app_1      ... done
 ```
 
 Show running docker container
 
 ```bash
-$ docker-compose -f example/todos-app/todos-app-stack.yml --compatibility ps
+$ docker-compose -f example/todo-app/docker-compose.yml ps
+       Name                      Command               State              Ports
+------------------------------------------------------------------------------------------
+todo-app_app_1        /todo-app --database-host  ...   Up      9000/tcp
+todo-app_database_1   docker-entrypoint.sh mysqld      Up      3306/tcp, 33060/tcp
+todo-app_ui_1         nginx -g daemon off;             Up      443/tcp, 0.0.0.0:80->80/tcp
 ```
 
 Show log docker container
 
 ```bash
-$ docker-compose -f example/todos-app/todos-app-stack.yml --compatibility logs
+$ docker-compose -f example/todos-app/todos-app-stack.yml logs
 ```
 
-Clean up stopping and removing docker container
+Scale `app` container
 
 ```bash
-$ docker-compose -f example/todos-app/todos-app-stack.yml --compatibility down
+$ docker-compose -f example/todo-app/docker-compose.yml scale app=3
+WARNING: The scale command is deprecated. Use the up command with the --scale flag instead.
+Starting todo-app_app_1 ... done
+Creating todo-app_app_2 ... done
+Creating todo-app_app_3 ... done
+```
+
+Stop and remove containers
+
+```bash
+$ docker-compose -f example/todo-app/docker-compose.yml down
 ```
 
 ## Exercise
